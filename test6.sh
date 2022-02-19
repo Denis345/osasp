@@ -1,7 +1,28 @@
-if [ $# -eq 3 ] ; then 
-	find "$2" -name "*.$3" > "$1"
-	sort "$1"
-else
-	echo "Wrong number of parameters!"; echo "Command format: (out file name) (search dir) (extension)" > &2
-fi
+#!/bin/bash
 
+filename=$1
+directory=$2
+extension=$3
+
+if [ -z $extension ]
+then
+	echo "There are needed 3 parametres"
+else
+
+	if [ ! -d $directory ]
+	then
+		echo "Directory can't be read" >&2
+	else
+		if [ ! -w $filename ]
+		then
+			echo "File can't be written" >&2
+		else	
+			
+			for file in $directory*.$extension
+			do
+				echo $file >> $filename
+			done;
+			sort -i $filename
+		fi
+	fi
+fi
