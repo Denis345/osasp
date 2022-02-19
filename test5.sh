@@ -1,1 +1,2 @@
-echo $@ | tee test5.out
+#!/bin/bash
+echo $@
